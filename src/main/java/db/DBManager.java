@@ -1,5 +1,9 @@
 package db;
 
+import org.apache.log4j.Logger;
+import util.DBConstant;
+import util.LoggerUtil;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -12,23 +16,25 @@ import java.sql.Statement;
 
 public class DBManager {
 
+    private static final Logger LOGGER = Logger.getLogger(DBManager.class);
+
     private static DBManager instance;
     private DataSource dataSource;
 
     private DBManager() {
         try {
             Context initContext = new InitialContext();
-            Context envContext = (Context) initContext.lookup("java:/comp/env");
-            dataSource = (DataSource) envContext.lookup("jdbc/conferences");
+            Context envContext = (Context) initContext.lookup(DBConstant.JAVA_COMP_ENV);
+            dataSource = (DataSource) envContext.lookup(DBConstant.JDBC_PROJECT_NAME);
         } catch (NamingException ex) {
-            ex.printStackTrace();
+            LOGGER.error(LoggerUtil.ERR_CANNOT_OBTAIN_DATA_SOURCE, ex);
         }
     }
 
     public static synchronized DBManager getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new DBManager();
-
+        }
         return instance;
     }
 
@@ -36,7 +42,7 @@ public class DBManager {
         try {
             return dataSource.getConnection();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            LOGGER.error(LoggerUtil.ERR_CANNOT_OBTAIN_CONNECTION, ex);
             return null;
         }
     }
