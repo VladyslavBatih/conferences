@@ -1,7 +1,6 @@
 package db;
 
 import org.apache.log4j.Logger;
-import util.DBConstant;
 import util.LoggerUtil;
 
 import javax.naming.Context;
@@ -13,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.function.Supplier;
 
 public class DBManager {
 
@@ -24,8 +24,8 @@ public class DBManager {
     private DBManager() {
         try {
             Context initContext = new InitialContext();
-            Context envContext = (Context) initContext.lookup(DBConstant.JAVA_COMP_ENV);
-            dataSource = (DataSource) envContext.lookup(DBConstant.JDBC_PROJECT_NAME);
+            Context envContext = (Context) initContext.lookup("java:/comp/env");
+            dataSource = (DataSource) envContext.lookup("jdbc/conferences");
         } catch (NamingException ex) {
             LOGGER.error(LoggerUtil.ERR_CANNOT_OBTAIN_DATA_SOURCE, ex);
         }
@@ -44,6 +44,32 @@ public class DBManager {
         } catch (SQLException ex) {
             LOGGER.error(LoggerUtil.ERR_CANNOT_OBTAIN_CONNECTION, ex);
             return null;
+        }
+    }
+
+    public <T> T doTransaction(Supplier<T> function) {
+        T result = null;
+        Connection connection = getConnection();
+        try {
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            result = function.get();
+            connection.commit();
+        } catch (SQLException e) {
+            rollback(connection);
+            LOGGER.error(LoggerUtil.ERR_FAIL_TRANSACTION, e);
+        } finally {
+            close(connection);
+        }
+        return result;
+    }
+
+    public void rollback(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+                LOGGER.error("Cannot rollback transaction", e);
+            }
         }
     }
 
