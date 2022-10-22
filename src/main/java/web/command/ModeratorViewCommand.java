@@ -20,6 +20,8 @@ public class ModeratorViewCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException, AppException {
+        LOGGER.info("ModeratorViewCommand: starts working");
+
         UserService userService = (UserService) servletContext.getAttribute(Constant.USER_SERVICE_MANAGER);
         List<UserDTO> userDTOList = userService.getUserDTOList();
         request.setAttribute("userDTOList", userDTOList);
@@ -34,7 +36,7 @@ public class ModeratorViewCommand extends Command {
 //        request.setAttribute("categoryList", categoryList);
 //        userDTOList.sort((o1, o2) -> (int) (o1.getId() - o2.getId()));
 //        carDTOList.sort((o1, o2) -> (int) (o1.getId() - o2.getId()));
-
+        LOGGER.info("Command finishes work");
         return Path.PAGE_MODERATOR_EVENT_LIST;
     }
 }

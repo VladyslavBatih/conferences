@@ -22,39 +22,35 @@ public class LogInCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException, AppException {
+        LOGGER.info("LogInCommand: starts working");
+
         HttpSession session = request.getSession();
 
         String login = request.getParameter("login");
+        request.setAttribute("login", login);
         LOGGER.trace("Request parameter: login --> " + login);
 
         String password = request.getParameter("password");
-        LOGGER.trace("Request parameter: password --> " + password); // TODO delete ???
+        LOGGER.trace("Request parameter: password --> " + password);
 
         UserService userService = (UserService) servletContext.getAttribute(Constant.USER_SERVICE_MANAGER);
 
-        AuthBean authBean = new AuthBean();
-        authBean.setLogin(login);
-        authBean.setPassword(password);
-
-        User user = userService.findUser(authBean);
-        authBean.setUser(user); // TODO Refactor with setLogin and setPassword
-
-        // TODO if user == null
+        AuthBean authBean = new AuthBean(login, password);
+        User user = userService.findUser(authBean); // TODO if user == null
+        authBean.setUser(user);
 
         session.setAttribute(Constant.USER, user);
         LOGGER.trace("Set the session attribute: user --> " + user);
 
-//        Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR);
+//        Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR); // TODO Validator
 //        Map<String, String> errors = validator.validate(authBean);
 //        request.setAttribute("errors", errors);
-        String forward = Path.PAGE_LOGIN; // TODO move to error page ???
-//        if (errors.isEmpty()) {
+
         Role userRole = Role.getRole(user);
         session.setAttribute(Constant.USER_ROLE, userRole);
-        LOGGER.trace("userRole --> " + userRole);
-//        UserStatus userStatus = UserStatus.getStatus(user);
-//        LOG.trace("userStatus --> " + userStatus);
+        LOGGER.trace("Set the session attribute: userRole --> " + userRole);
 
+        String forward = Path.PAGE_LOGIN; // TODO move to error page ???
         if (userRole == Role.MODERATOR) {
             forward = Path.COMMAND_MODERATOR_PANEL;
         }
@@ -64,20 +60,7 @@ public class LogInCommand extends Command {
         if (userRole == Role.USER) {
             forward = Path.COMMAND_USER_PANEL;
         }
-//        if (userStatus.equals(UserStatus.BUNNED)) {
-//            request.setAttribute("errorMessage", "You was banned");
-//            forward = Path.PAGE_ERROR_PAGE;
-//        } else {
-//            session.setAttribute(Constant.USER_STATUS, userStatus);
-//            session.setAttribute(Constant.USER, user);
-//            LOG.trace("Set the session attribute: user --> " + user);
-//            session.setAttribute(Constant.USER_ROLE, userRole);
-//        }
-        LOGGER.trace("Set the session attribute: userRole --> " + userRole);
-        LOGGER.info("User " + user + " logged as " + userRole.toString().toLowerCase());
-        LOGGER.debug("Command finished");
-        request.setAttribute("login", login);
-
+        LOGGER.info("Command finishes work");
         return forward;
     }
 }
