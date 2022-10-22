@@ -25,12 +25,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(RegistrationBean registrationBean) {
+    public void addUser(RegistrationBean registrationBean) {
         userRepository.createUser(getEntity(registrationBean, Role.USER));
     }
 
     @Override
-    public void createSpeaker(RegistrationBean registrationBean) {
+    public void addSpeaker(RegistrationBean registrationBean) {
         userRepository.createUser(getEntity(registrationBean, Role.SPEAKER));
     }
 
@@ -71,19 +71,18 @@ public class UserServiceImpl implements UserService {
     }
 
     private User getEntity(RegistrationBean registrationBean, Role role) {
-        User user = new User();
-        user.setLogin(registrationBean.getLogin());
-        user.setPassword(registrationBean.getPassword());
-        user.setFirstName(registrationBean.getFirstName());
-        user.setLastName(registrationBean.getLastName());
-        user.setRoleId(role.getNumber());
-        return user;
+        return new User(
+                registrationBean.getLogin(),
+                registrationBean.getPassword(),
+                registrationBean.getFirstName(),
+                registrationBean.getLastName(),
+                role.getNumber());
     }
 
     private User getEntity(AuthBean authBean) {
         User user = new User();
         user.setLogin(authBean.getLogin());
-        user.setPassword(authBean.getPassword()); // TODO delete ???
+        user.setPassword(authBean.getPassword());
         return user;
     }
 }

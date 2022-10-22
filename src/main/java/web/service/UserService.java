@@ -12,9 +12,9 @@ public interface UserService {
 
     void updateUserInfo(SettingBean settingBean);
 
-    void createUser(RegistrationBean registrationBean);
+    void addUser(RegistrationBean registrationBean);
 
-    void createSpeaker(RegistrationBean registrationBean);
+    void addSpeaker(RegistrationBean registrationBean);
 
     List<UserDTO> getUserDTOList();
 
