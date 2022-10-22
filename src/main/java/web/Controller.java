@@ -4,7 +4,6 @@ import db.entity.User;
 import exception.AppException;
 import org.apache.log4j.Logger;
 import util.Constant;
-import util.LoggerUtil;
 import util.Path;
 import web.command.Command;
 import web.command.CommandContainer;
@@ -32,10 +31,10 @@ public class Controller extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        LOGGER.debug(LoggerUtil.COMMAND_START);
+        LOGGER.info("Controller starts working");
 
         Command command = getCommand(request);
-        LOGGER.trace(LoggerUtil.COMMAND_OBTAIN + command);
+        LOGGER.trace("Obtained command --> " + command);
 
         String forward = Path.PAGE_ERROR_PAGE;
         try {
@@ -43,15 +42,15 @@ public class Controller extends HttpServlet {
         } catch (AppException ex) {
             request.setAttribute("errorMessage", ex.getMessage());
         }
-        LOGGER.trace(LoggerUtil.COMMAND_FORWARD + forward);
-        LOGGER.debug(LoggerUtil.COMMAND_GO_FORWARD + forward);
-
+        LOGGER.debug("Forward address --> " + forward);
         request.getRequestDispatcher(forward).forward(request, response);
+        LOGGER.info("Controller finishes work");
     }
 
     private Command getCommand(HttpServletRequest request) {
         String commandName = request.getParameter("command");
-        LOGGER.trace(LoggerUtil.COMMAND_COMMAND_PARAMETER + commandName);
+        LOGGER.trace("Request parameter: command --> " + commandName);
+
         Command command = CommandContainer.getCommand(commandName);
         UserService userService = (UserService) getServletContext().getAttribute(Constant.USER_SERVICE_MANAGER);
         User user = (User) request.getSession().getAttribute(Constant.USER);
