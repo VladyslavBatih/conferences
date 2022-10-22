@@ -10,6 +10,16 @@ public class RegistrationBean {
     private String lastName;
     private User user;
 
+    public RegistrationBean() {
+    }
+
+    public RegistrationBean(String login, String password, String firstName, String lastName) {
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public String getLogin() {
         return login;
     }

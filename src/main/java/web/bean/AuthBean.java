@@ -8,6 +8,14 @@ public class AuthBean {
     private String password;
     private User user;
 
+    public AuthBean() {
+    }
+
+    public AuthBean(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
     public String getLogin() {
         return login;
     }
