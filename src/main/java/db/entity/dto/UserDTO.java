@@ -1,32 +1,20 @@
 package db.entity.dto;
 
+import java.util.Objects;
+
 public class UserDTO {
 
-    private int id;
     private String login;
-    private String password;
     private String firstName;
     private String lastName;
-    private int role_id;
 
     public UserDTO() {
     }
 
-    public UserDTO(int id, String login, String password, String firstName, String lastName, int role_id) {
-        this.id = id;
+    public UserDTO(String login, String firstName, String lastName) {
         this.login = login;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.role_id = role_id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getLogin() {
@@ -35,14 +23,6 @@ public class UserDTO {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirstName() {
@@ -61,11 +41,25 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public int getRole_id() {
-        return role_id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDTO userDTO = (UserDTO) o;
+        return login.equals(userDTO.login);
     }
 
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
+    @Override
+    public int hashCode() {
+        return Objects.hash(login);
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO {" +
+                "login = '" + login + '\'' +
+                ", firstName = '" + firstName + '\'' +
+                ", lastName = '" + lastName + '\'' +
+                '}';
     }
 }

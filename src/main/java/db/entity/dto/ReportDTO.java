@@ -1,28 +1,21 @@
 package db.entity.dto;
 
+import java.util.List;
+import java.util.Objects;
+
 public class ReportDTO {
 
-    private int id;
-    private String topic;
-    private int event_id;
-    private int speaker_id;
+   private String topic;
+   private String speaker;
+   private List<UserDTO> userDTOList;
 
     public ReportDTO() {
     }
 
-    public ReportDTO(int id, String topic, int event_id, int speaker_id) {
-        this.id = id;
+    public ReportDTO(String topic, String speaker, List<UserDTO> userDTOList) {
         this.topic = topic;
-        this.event_id = event_id;
-        this.speaker_id = speaker_id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.speaker = speaker;
+        this.userDTOList = userDTOList;
     }
 
     public String getTopic() {
@@ -33,19 +26,36 @@ public class ReportDTO {
         this.topic = topic;
     }
 
-    public int getEvent_id() {
-        return event_id;
+    public String getSpeaker() {
+        return speaker;
     }
 
-    public void setEvent_id(int event_id) {
-        this.event_id = event_id;
+    public void setSpeaker(String speaker) {
+        this.speaker = speaker;
     }
 
-    public int getSpeaker_id() {
-        return speaker_id;
+    public List<UserDTO> getUserDTOList() {
+        return userDTOList;
     }
 
-    public void setSpeaker_id(int speaker_id) {
-        this.speaker_id = speaker_id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReportDTO reportDTO = (ReportDTO) o;
+        return topic.equals(reportDTO.topic);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(topic);
+    }
+
+    @Override
+    public String toString() {
+        return "ReportDTO {" +
+                "topic = '" + topic + '\'' +
+                ", speaker = '" + speaker + '\'' +
+                '}';
     }
 }

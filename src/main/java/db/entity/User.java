@@ -10,6 +10,17 @@ public class User extends Entity {
     private String lastName;
     private int roleId;
 
+    public User() {
+    }
+
+    public User(String login, String password, String firstName, String lastName, int roleId) {
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.roleId = roleId;
+    }
+
     public String getLogin() {
         return login;
     }
@@ -51,6 +62,12 @@ public class User extends Entity {
     }
 
     @Override
+    public int compareTo(Object o) {
+        User user = (User) o;
+        return login.compareTo(user.login);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -61,12 +78,6 @@ public class User extends Entity {
     @Override
     public int hashCode() {
         return Objects.hash(login);
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        User user = (User) o;
-        return login.compareTo(user.login);
     }
 
     @Override
