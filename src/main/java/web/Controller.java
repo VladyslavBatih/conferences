@@ -51,7 +51,7 @@ public class Controller extends HttpServlet {
         LOGGER.trace("Request parameter: command --> " + commandName);
 
         Command command = CommandContainer.getCommand(commandName);
-        UserService userService = (UserService) getServletContext().getAttribute(Constant.USER_SERVICE_MANAGER);
+        UserService userService = (UserService) getServletContext().getAttribute(Constant.USER_SERVICE);
         User user = (User) request.getSession().getAttribute(Constant.USER);
         if (Objects.nonNull(user)) {
             user = userService.findUser(user);

@@ -16,7 +16,7 @@ public class UserViewCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException, AppException {
-        UserService userService = (UserService) servletContext.getAttribute(Constant.USER_SERVICE_MANAGER);
+        UserService userService = (UserService) servletContext.getAttribute(Constant.USER_SERVICE);
         List<UserDTO> userDTOList = userService.getUserDTOList();
         request.setAttribute("userDTOList", userDTOList);
 

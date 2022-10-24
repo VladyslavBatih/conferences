@@ -5,21 +5,31 @@ import java.util.Objects;
 
 public class EventDTO {
 
-   private String name;
-   private String place;
-   private String date;
-   private String time;
-   private List<ReportDTO> reportDTOList;
+    private int id;
+    private String name;
+    private String place;
+    private String date;
+    private String time;
+    private List<ReportDTO> reportDTOList;
 
     public EventDTO() {
     }
 
-    public EventDTO(String name, String place, String date, String time, List<ReportDTO> reportDTOList) {
+    public EventDTO(int id, String name, String place, String date, String time, List<ReportDTO> reportDTOList) {
+        this.id = id;
         this.name = name;
         this.place = place;
         this.date = date;
         this.time = time;
         this.reportDTOList = reportDTOList;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

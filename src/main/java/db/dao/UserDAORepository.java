@@ -2,6 +2,7 @@ package db.dao;
 
 import db.DBManager;
 import db.entity.User;
+import db.entity.dto.ReportDTO;
 import db.entity.dto.UserDTO;
 import exception.DBException;
 import org.apache.log4j.Logger;
@@ -57,6 +58,29 @@ public class UserDAORepository {
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(DBConstant.SQL_GET_USER_FROM_TABLE);
+            while (resultSet.next()) {
+                userDTOList.add(extractUserDTO(resultSet));
+            }
+            connection.commit();
+            LOGGER.info("User DTO list size: " + userDTOList.size());
+        } catch (SQLException e) {
+            dbManager.rollback(connection);
+            LOGGER.error("Cannot obtain user DTO list ", e);
+            throw new DBException("Unable to connect", e);
+        } finally {
+            DBManager.close(connection, statement, resultSet);
+        }
+        return userDTOList;
+    }
+
+    public List<UserDTO> getUserDTOList(ReportDTO reportDTO) throws DBException {
+        List<UserDTO> userDTOList = new ArrayList<>();
+        Connection connection = dbManager.getConnection();
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM reports_users WHERE report_id = " + reportDTO.getId()); // TODO QUERY
             while (resultSet.next()) {
                 userDTOList.add(extractUserDTO(resultSet));
             }

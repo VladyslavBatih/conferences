@@ -6,6 +6,7 @@ public class RegistrationBean {
 
     private String login;
     private String password;
+    private String confirm;
     private String firstName;
     private String lastName;
     private User user;
@@ -13,9 +14,10 @@ public class RegistrationBean {
     public RegistrationBean() {
     }
 
-    public RegistrationBean(String login, String password, String firstName, String lastName) {
+    public RegistrationBean(String login, String password, String confirm, String firstName, String lastName) {
         this.login = login;
         this.password = password;
+        this.confirm = confirm;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -34,6 +36,14 @@ public class RegistrationBean {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirm() {
+        return confirm;
+    }
+
+    public void setConfirm(String confirm) {
+        this.confirm = confirm;
     }
 
     public String getFirstName() {

@@ -33,7 +33,7 @@ public class LogInCommand extends Command {
         String password = request.getParameter("password");
         LOGGER.trace("Request parameter: password --> " + password);
 
-        UserService userService = (UserService) servletContext.getAttribute(Constant.USER_SERVICE_MANAGER);
+        UserService userService = (UserService) servletContext.getAttribute(Constant.USER_SERVICE);
 
         AuthBean authBean = new AuthBean(login, password);
         User user = userService.findUser(authBean); // TODO if user == null

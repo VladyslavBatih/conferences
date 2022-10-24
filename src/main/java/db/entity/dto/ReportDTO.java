@@ -5,17 +5,29 @@ import java.util.Objects;
 
 public class ReportDTO {
 
-   private String topic;
-   private String speaker;
-   private List<UserDTO> userDTOList;
+    private int id;
+    private String topic;
+    private String speakerFirstName;
+    private String speakerLastName;
+    private List<UserDTO> userDTOList;
 
     public ReportDTO() {
     }
 
-    public ReportDTO(String topic, String speaker, List<UserDTO> userDTOList) {
+    public ReportDTO(int id, String topic, String speakerFirstName, String speakerLastName, List<UserDTO> userDTOList) {
+        this.id = id;
         this.topic = topic;
-        this.speaker = speaker;
+        this.speakerFirstName = speakerFirstName;
+        this.speakerLastName = speakerLastName;
         this.userDTOList = userDTOList;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTopic() {
@@ -26,12 +38,20 @@ public class ReportDTO {
         this.topic = topic;
     }
 
-    public String getSpeaker() {
-        return speaker;
+    public String getSpeakerFirstName() {
+        return speakerFirstName;
     }
 
-    public void setSpeaker(String speaker) {
-        this.speaker = speaker;
+    public void setSpeakerFirstName(String speakerFirstName) {
+        this.speakerFirstName = speakerFirstName;
+    }
+
+    public String getSpeakerLastName() {
+        return speakerLastName;
+    }
+
+    public void setSpeakerLastName(String speakerLastName) {
+        this.speakerLastName = speakerLastName;
     }
 
     public List<UserDTO> getUserDTOList() {
@@ -55,7 +75,7 @@ public class ReportDTO {
     public String toString() {
         return "ReportDTO {" +
                 "topic = '" + topic + '\'' +
-                ", speaker = '" + speaker + '\'' +
+                ", speaker = '" + speakerFirstName + '\'' +
                 '}';
     }
 }

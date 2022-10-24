@@ -1,10 +1,14 @@
 package web.command;
 
+import db.entity.dto.EventDTO;
+import db.entity.dto.ReportDTO;
 import db.entity.dto.UserDTO;
 import exception.AppException;
 import org.apache.log4j.Logger;
 import util.Constant;
 import util.Path;
+import web.service.EventService;
+import web.service.ReportService;
 import web.service.UserService;
 
 import javax.servlet.ServletException;
@@ -22,8 +26,16 @@ public class ModeratorViewCommand extends Command {
             throws IOException, ServletException, AppException {
         LOGGER.info("ModeratorViewCommand: starts working");
 
-        UserService userService = (UserService) servletContext.getAttribute(Constant.USER_SERVICE_MANAGER);
+        EventService eventService = (EventService) servletContext.getAttribute(Constant.EVENT_SERVICE);
+        ReportService reportService = (ReportService) servletContext.getAttribute(Constant.REPORT_SERVICE);
+        UserService userService = (UserService) servletContext.getAttribute(Constant.USER_SERVICE);
+
+        List<EventDTO> eventDTOList = eventService.getEventDTOList();
+        List<ReportDTO> reportDTOList = reportService.getReportDTOList();
         List<UserDTO> userDTOList = userService.getUserDTOList();
+
+        request.setAttribute("eventDTOList", eventDTOList);
+        request.setAttribute("reportDTOList", reportDTOList);
         request.setAttribute("userDTOList", userDTOList);
 
 //        List<UserDTO> userDTOList = userService.getUserDTO();
