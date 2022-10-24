@@ -1,14 +1,25 @@
 package web.listener;
 
 import db.DBManager;
+import db.dao.EventDAORepository;
+import db.dao.ReportDAORepository;
 import db.dao.UserDAORepository;
+import db.repository.EventRepository;
+import db.repository.ReportRepository;
 import db.repository.UserRepository;
+import db.repository.impl.EventRepositoryImpl;
+import db.repository.impl.ReportRepositoryImpl;
 import db.repository.impl.UserRepositoryImpl;
 import util.Constant;
 import util.Util;
 import web.command.Command;
+import web.service.EventService;
+import web.service.ReportService;
 import web.service.UserService;
+import web.service.impl.EventServiceImpl;
+import web.service.impl.ReportServiceImpl;
 import web.service.impl.UserServiceImpl;
+import web.validator.Validator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -24,21 +35,31 @@ public class ServletListener implements ServletContextListener {
         Command.setContext(servletContext);
 
         DBManager dbManager = DBManager.getInstance();
+
+        EventService eventService = getEventService(dbManager);
+        ReportService reportService = getReportService(dbManager);
         UserService userService = getUserService(dbManager);
-//        BillService billService = getBillService(dbManager);
-//        CarService carService = getCarService(dbManager);
-//        OrderService orderService = getOrderService(dbManager);
 
         Util util = new Util();
-//        Validator validator = new Validator(util);
+        Validator validator = new Validator(util);
 
-
-//        servletContext.setAttribute(Constant.VALIDATOR, validator);
+        servletContext.setAttribute(Constant.VALIDATOR, validator);
         servletContext.setAttribute(Constant.UTIL, util);
-        servletContext.setAttribute(Constant.USER_SERVICE_MANAGER, userService);
-//        servletContext.setAttribute(Constant.BILL_SERVICE_MANAGER,billService);
-//        servletContext.setAttribute(Constant.CAR_SERVICE_MANAGER,carService);
-//        servletContext.setAttribute(Constant.ORDER_SERVICE_MANAGER, orderService);
+        servletContext.setAttribute(Constant.EVENT_SERVICE, eventService);
+        servletContext.setAttribute(Constant.REPORT_SERVICE, reportService);
+        servletContext.setAttribute(Constant.USER_SERVICE, userService);
+    }
+
+    private EventService getEventService(DBManager dbManager) {
+        EventDAORepository eventDAORepository = new EventDAORepository(dbManager);
+        EventRepository eventRepository = new EventRepositoryImpl(eventDAORepository, dbManager);
+        return new EventServiceImpl(eventRepository);
+    }
+
+    private ReportService getReportService(DBManager dbManager) {
+        ReportDAORepository reportDAORepository = new ReportDAORepository(dbManager);
+        ReportRepository reportRepository = new ReportRepositoryImpl(reportDAORepository, dbManager);
+        return new ReportServiceImpl(reportRepository);
     }
 
     private UserService getUserService(DBManager dbManager) {
