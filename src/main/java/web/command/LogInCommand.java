@@ -8,12 +8,14 @@ import util.Constant;
 import util.Path;
 import web.bean.AuthBean;
 import web.service.UserService;
+import web.validator.Validator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
 
 public class LogInCommand extends Command {
 
@@ -42,15 +44,21 @@ public class LogInCommand extends Command {
         session.setAttribute(Constant.USER, user);
         LOGGER.trace("Set the session attribute: user --> " + user);
 
-//        Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR); // TODO Validator
-//        Map<String, String> errors = validator.validate(authBean);
-//        request.setAttribute("errors", errors);
+        Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR);
+        Map<String, String> errors = validator.validate(authBean);
+        request.setAttribute("errors", errors);
+
+        String forward = Path.PAGE_LOGIN;
+
+        if (!errors.isEmpty()) {
+            request.setAttribute("login", login);
+            return forward;
+        }
 
         Role userRole = Role.getRole(user);
         session.setAttribute(Constant.USER_ROLE, userRole);
         LOGGER.trace("Set the session attribute: userRole --> " + userRole);
 
-        String forward = Path.PAGE_LOGIN; // TODO move to error page ???
         if (userRole == Role.MODERATOR) {
             forward = Path.COMMAND_MODERATOR_PANEL;
         }

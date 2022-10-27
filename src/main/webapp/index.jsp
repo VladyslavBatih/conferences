@@ -1,38 +1,38 @@
-<%String header = "Current date:";%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8"/>
     <title>Conferences</title>
 </head>
 <body>
-    <h1><%=header%></h1>
-    <p><%=new java.util.Date()%></p>
 
-    <div>
-    <h2>Please, log in</h2>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
+
+    <div align="center">
+    <h1>Conferences</h2>
+
     </div>
 
-<div class="container">
+<div class="container" align="center">
     <form class="auth" action="controller" method="post">
         <input type="hidden" name="command" value="login"/>
         <table>
             <tr>
                 <td><input placeholder="Your login" type="text" name="login" value="${requestScope.login}"></td>
-            </tr>
-            <tr>
                 <td><span class="error"><c:out value="${requestScope.errors.login}"/></span></td>
             </tr>
             <tr>
                 <td><input placeholder="Your password" type="password" name="password"></td>
-            </tr>
-            <tr>
                 <td><span class="error"><c:out value="${requestScope.errors.password}"/></span></td>
             </tr>
             <tr>
-                <td><input type="submit" style="width: 100%" value="Submit"></td>
+                <td><input type="submit" style="width: 88%" value="Log in"></td>
             </tr>
             <tr>
-                <td><a href="controller?command=registrationView">Registration</a></td>
+                <td>
+                <label>Don&apos;t have an account</label>
+                <a href="controller?command=registrationView">Sign up</a>
+                </td>
             </tr>
         </table>
     </form>
