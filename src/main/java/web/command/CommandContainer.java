@@ -16,6 +16,8 @@ public class CommandContainer {
         commands.put("speakerPanel", new SpeakerViewCommand());
         commands.put("userPanel", new UserViewCommand());
         commands.put("addEvent", new AddEventCommand());
+        commands.put("addEventView", new AddEventViewCommand());
+        commands.put("noCommand", new NoCommand());
     }
 
     public static Command getCommand(String commandName) {

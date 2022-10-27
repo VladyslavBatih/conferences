@@ -1,8 +1,8 @@
 package web.validator;
 
-import db.entity.User;
 import util.Util;
 import web.bean.AuthBean;
+import web.bean.EventBean;
 import web.bean.RegistrationBean;
 import web.bean.SettingBean;
 
@@ -35,7 +35,6 @@ public class Validator {
 
     public Map<String, String> validate(RegistrationBean registrationBean) {
         Map<String, String> errors = new HashMap<>();
-        String postPrefix = "moderator"; // TODO "admin"
         if (Objects.isNull(registrationBean.getLogin()) || registrationBean.getLogin().isEmpty()) {
             errors.put("login", "Fill in login field");
         } else {
@@ -59,6 +58,35 @@ public class Validator {
         }
         if (Objects.isNull(registrationBean.getLastName()) || registrationBean.getLastName().isEmpty()) {
             errors.put("lastName", "Fill in your lastname");
+        }
+        return errors;
+    }
+
+    public Map<String, String> validate(EventBean eventBean) {
+        Map<String, String> errors = new HashMap<>();
+        if (Objects.isNull(eventBean.getName()) || eventBean.getName().isEmpty()) {
+            errors.put("name", "Fill in event name");
+        } else {
+            if (Objects.nonNull(eventBean.getEvent())) {
+                errors.put("name",  "This event already exist");
+            }
+        }
+        if (Objects.isNull(eventBean.getPlace()) || eventBean.getPlace().isEmpty()) {
+            errors.put("place",  "Fill in event place");
+        }
+        if (Objects.isNull(eventBean.getDate()) || eventBean.getDate().isEmpty()) {
+            errors.put("date", "Fill in event date");
+        } else {
+            if(!eventBean.getDate().matches("([12]\\d{3}.(0[1-9]|1[0-2]).(0[1-9]|[12]\\d|3[01]))")) {
+                errors.put("date", "Date format: yyyy.mm.dd");
+            }
+        }
+        if (Objects.isNull(eventBean.getTime()) || eventBean.getTime().isEmpty()) {
+            errors.put("time", "Fill in event time");
+        } else {
+            if(!eventBean.getTime().matches("([01]?\\d|2[0-3]):[0-5]\\d")) {
+                errors.put("time", "Time format: hh:dd");
+            }
         }
         return errors;
     }

@@ -7,6 +7,7 @@ import db.entity.dto.EventDTO;
 import db.repository.EventRepository;
 import exception.DBException;
 import org.apache.log4j.Logger;
+import web.bean.EventBean;
 
 import java.util.ArrayList;
 import java.util.List;

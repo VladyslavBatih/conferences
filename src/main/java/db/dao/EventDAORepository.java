@@ -28,9 +28,9 @@ public class EventDAORepository {
         Event selectedEvent = null;
         try {
             preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM events WHERE id=?",  // TODO QUERY
+                    "SELECT * FROM events WHERE name=?",  // TODO QUERY
                     Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, event.getId());
+            preparedStatement.setString(1, event.getName());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 selectedEvent = extractEvent(resultSet);
