@@ -33,6 +33,36 @@ public class Validator {
         return errors;
     }
 
+    public Map<String, String> validate(RegistrationBean registrationBean) {
+        Map<String, String> errors = new HashMap<>();
+        String postPrefix = "moderator"; // TODO "admin"
+        if (Objects.isNull(registrationBean.getLogin()) || registrationBean.getLogin().isEmpty()) {
+            errors.put("login", "Fill in login field");
+        } else {
+            if (Objects.nonNull(registrationBean.getUser())) {
+                errors.put("login",  "User with this login already exist");
+            }
+        }
+        if (Objects.isNull(registrationBean.getPassword()) || registrationBean.getPassword().isEmpty()) {
+            errors.put("password",  "Put your password");
+        } else {
+            if (Objects.isNull(registrationBean.getConfirm()) || registrationBean.getConfirm().isEmpty()) {
+                errors.put("confirm", "Confirm your password");
+            } else {
+                if (!registrationBean.getPassword().equals(registrationBean.getConfirm())) {
+                    errors.put("confirm", "Password mismatch");
+                }
+            }
+        }
+        if (Objects.isNull(registrationBean.getFirstName()) || registrationBean.getFirstName().isEmpty()) {
+            errors.put("firstName", "Fill in your firstname");
+        }
+        if (Objects.isNull(registrationBean.getLastName()) || registrationBean.getLastName().isEmpty()) {
+            errors.put("lastName", "Fill in your lastname");
+        }
+        return errors;
+    }
+
     public Map<String, String> validate(RegistrationBean registrationBean, Locale locale) {
         Map<String, String> errors = new HashMap<>();
         String postPrefix = "moderator"; // TODO "admin"
@@ -65,20 +95,19 @@ public class Validator {
 
     public Map<String, String> validate(AuthBean authBean) {
         Map<String, String> errors = new HashMap<>();
-        User user;
         if (Objects.isNull(authBean.getLogin()) || authBean.getLogin().isEmpty()) {
-            errors.put("login", "Fill login field");
+            errors.put("login", "Fill in login field");
         } else {
             if (Objects.nonNull(authBean.getUser())) {
                 if (!authBean.getPassword().equals(authBean.getUser().getPassword())) {
                     errors.put("password", "The password is incorrect");
                 }
             } else {
-                errors.put("login", "User does not exist");
+                errors.put("login", "User with this login does not exist");
             }
         }
         if (Objects.isNull(authBean.getPassword()) || authBean.getPassword().isEmpty()) {
-            errors.put("password", "Fill password field");
+            errors.put("password", "Fill in password field");
         }
         return errors;
     }

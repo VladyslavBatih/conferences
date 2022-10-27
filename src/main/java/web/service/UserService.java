@@ -14,8 +14,6 @@ public interface UserService {
 
     void addUser(RegistrationBean registrationBean);
 
-    void addSpeaker(RegistrationBean registrationBean);
-
     List<UserDTO> getUserDTOList();
 
     User findUser(AuthBean authBean);

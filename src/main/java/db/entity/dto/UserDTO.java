@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class UserDTO {
 
+    // TODO id ???
     private String login;
     private String firstName;
     private String lastName;
