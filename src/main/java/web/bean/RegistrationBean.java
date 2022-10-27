@@ -9,17 +9,19 @@ public class RegistrationBean {
     private String confirm;
     private String firstName;
     private String lastName;
+    private int role;
     private User user;
 
     public RegistrationBean() {
     }
 
-    public RegistrationBean(String login, String password, String confirm, String firstName, String lastName) {
+    public RegistrationBean(String login, String password, String confirm, String firstName, String lastName, int role) {
         this.login = login;
         this.password = password;
         this.confirm = confirm;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.role = role;
     }
 
     public String getLogin() {
@@ -62,11 +64,31 @@ public class RegistrationBean {
         this.lastName = lastName;
     }
 
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "RegistrationBean {" +
+                "login = '" + login + '\'' +
+                ", password = '" + password + '\'' +
+                ", confirm = '" + confirm + '\'' +
+                ", firstName = '" + firstName + '\'' +
+                ", lastName = '" + lastName + '\'' +
+                ", role = " + role +
+                '}';
     }
 }

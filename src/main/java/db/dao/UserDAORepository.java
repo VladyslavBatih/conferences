@@ -26,7 +26,7 @@ public class UserDAORepository {
         this.dbManager = dbManager;
     }
 
-    public User selectUser(User user) throws DBException { // TODO check by password ???
+    public User selectUser(User user) throws DBException {
         Connection connection = dbManager.getConnection();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -106,7 +106,7 @@ public class UserDAORepository {
             preparedStatement.setString(columnIndex++, user.getPassword());
             preparedStatement.setString(columnIndex++, user.getFirstName());
             preparedStatement.setString(columnIndex++, user.getLastName());
-            preparedStatement.setLong(columnIndex, user.getRoleId());
+            preparedStatement.setInt(columnIndex, user.getRoleId());
             preparedStatement.executeUpdate();
             connection.commit();
             LOGGER.info("Inserted user: " + user);
