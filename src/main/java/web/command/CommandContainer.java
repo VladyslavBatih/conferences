@@ -17,6 +17,10 @@ public class CommandContainer {
         commands.put("userPanel", new UserViewCommand());
         commands.put("addEvent", new AddEventCommand());
         commands.put("addEventView", new AddEventViewCommand());
+        commands.put("eventDetailsView", new EventDetailsViewCommand());
+        commands.put("eventDetails", new EventDetailsCommand());
+        commands.put("addReportView", new AddReportViewCommand());
+        commands.put("addReport", new AddReportCommand());
         commands.put("noCommand", new NoCommand());
     }
 

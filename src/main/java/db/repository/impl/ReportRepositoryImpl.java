@@ -3,6 +3,7 @@ package db.repository.impl;
 import db.DBManager;
 import db.dao.ReportDAORepository;
 import db.entity.Report;
+import db.entity.dto.EventDTO;
 import db.entity.dto.ReportDTO;
 import db.repository.ReportRepository;
 import exception.DBException;
@@ -66,6 +67,18 @@ public class ReportRepositoryImpl implements ReportRepository {
         return dbManager.doTransaction(() -> {
             try {
                 return reportDAORepository.getReportDTOList();
+            } catch (DBException e) {
+                LOGGER.error("Cannot get list report " + e);
+            }
+            return new ArrayList<>();
+        });
+    }
+
+    @Override
+    public List<ReportDTO> getReportDTOList(EventDTO eventDTO) {
+        return dbManager.doTransaction(() -> {
+            try {
+                return reportDAORepository.getReportDTOList(eventDTO);
             } catch (DBException e) {
                 LOGGER.error("Cannot get list report " + e);
             }

@@ -26,7 +26,7 @@
                 <td><span class="error"><c:out value="${requestScope.errors.password}"/></span></td>
             </tr>
             <tr>
-                <td><input type="submit" style="width: 88%" value="Log in"></td>
+                <td><input type="submit" style="width: 88%" value="Sign in"></td>
             </tr>
             <tr>
                 <td>

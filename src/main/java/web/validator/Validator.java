@@ -4,6 +4,7 @@ import util.Util;
 import web.bean.AuthBean;
 import web.bean.EventBean;
 import web.bean.RegistrationBean;
+import web.bean.ReportBean;
 import web.bean.SettingBean;
 
 import java.util.HashMap;
@@ -86,6 +87,18 @@ public class Validator {
         } else {
             if(!eventBean.getTime().matches("([01]?\\d|2[0-3]):[0-5]\\d")) {
                 errors.put("time", "Time format: hh:dd");
+            }
+        }
+        return errors;
+    }
+
+    public Map<String, String> validate(ReportBean reportBean) {
+        Map<String, String> errors = new HashMap<>();
+        if (Objects.isNull(reportBean.getTopic()) || reportBean.getTopic().isEmpty()) {
+            errors.put("topic", "Fill in report topic");
+        } else {
+            if (Objects.nonNull(reportBean.getReport())) {
+                errors.put("topic",  "Report with this topic already exist");
             }
         }
         return errors;

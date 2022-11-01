@@ -1,6 +1,7 @@
 package db.repository;
 
 import db.entity.Report;
+import db.entity.dto.EventDTO;
 import db.entity.dto.ReportDTO;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface ReportRepository {
     void updateReport(Report report);
 
     List<ReportDTO> getReportDTOList();
+
+    List<ReportDTO> getReportDTOList(EventDTO eventDTO);
 }

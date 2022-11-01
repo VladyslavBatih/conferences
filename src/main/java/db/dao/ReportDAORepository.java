@@ -29,9 +29,11 @@ public class ReportDAORepository {
         Report selectedReport = null;
         try {
             preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM reports WHERE id=?",  // TODO QUERY
+                    "SELECT * FROM reports WHERE event_id=? and topic=?",  // TODO QUERY
                     Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, report.getId());
+            int columnIndex = 1;
+            preparedStatement.setInt(columnIndex++, report.getEventId());
+            preparedStatement.setString(columnIndex, report.getTopic());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 selectedReport = extractReport(resultSet);
@@ -54,7 +56,7 @@ public class ReportDAORepository {
         try {
             preparedStatement = connection.prepareStatement(
                     "INSERT INTO reports(topic, event_id, speaker_id) VALUES (?,?,?)"); // TODO QUERY
-
+            System.out.println(report);
             int columnIndex = 1;
             preparedStatement.setString(columnIndex++, report.getTopic());
             preparedStatement.setInt(columnIndex++, report.getEventId());

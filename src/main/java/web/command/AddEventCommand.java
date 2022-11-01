@@ -4,6 +4,7 @@ import db.entity.Event;
 import exception.AppException;
 import org.apache.log4j.Logger;
 import util.Constant;
+import util.Path;
 import web.bean.EventBean;
 import web.service.EventService;
 import web.validator.Validator;
@@ -21,7 +22,7 @@ public class AddEventCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException, AppException {
-        LOGGER.info("ModeratorViewCommand: starts working");
+        LOGGER.info("AddEventCommand: starts working");
 
         String name = request.getParameter("name");
         String place = request.getParameter("place");
@@ -45,7 +46,7 @@ public class AddEventCommand extends Command {
         String forward;
         if (errors.isEmpty()) {
             eventService.addEvent(eventBean);
-            forward = "/controller?command=moderatorPanel";
+            forward = Path.COMMAND_MODERATOR_PANEL;
         } else {
             request.setAttribute("name", name);
             request.setAttribute("place", place);

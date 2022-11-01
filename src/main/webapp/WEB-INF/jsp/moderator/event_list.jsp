@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>Moderator Panel</title>
+    <title>Moderator Panel * Conferences</title>
 </head>
 <body>
     <div align="center">
@@ -25,6 +25,8 @@
 %>
     <br/>
 <div align="center">
+<form action="controller" method="get">
+
     <table border="1">
         <thead>
             <tr>
@@ -32,16 +34,22 @@
                 <th>Place</th>
                 <th>Date</th>
                 <th>Time</th>
+                <th>Link</th>
             </tr>
         </thead>
 
 
         <c:forEach var="eventDTO" items="${eventDTOList}">
         <tr>
+        <form>
+            <input type="hidden" name="command" value="eventDetails"/>
+            <input type="hidden" name="eventId" value=${eventDTO.id}>
             <td>${eventDTO.name}</td>
             <td>${eventDTO.place}</td>
             <td>${eventDTO.date}</td>
             <td>${eventDTO.time}</td>
+            <td><input type="submit" value="Details"</td>
+        </form>
         </tr>
         </c:forEach>
     </table>
