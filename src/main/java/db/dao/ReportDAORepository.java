@@ -8,7 +8,11 @@ import db.entity.dto.UserDTO;
 import exception.DBException;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +43,10 @@ public class ReportDAORepository {
                 selectedReport = extractReport(resultSet);
             }
             connection.commit();
-            LOGGER.info("Selected report: " + selectedReport);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain report ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain report ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, preparedStatement, resultSet);
         }
@@ -64,11 +67,10 @@ public class ReportDAORepository {
 
             preparedStatement.executeUpdate();
             connection.commit();
-            LOGGER.info("Inserted report: " + report);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain insert report ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain insert report ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, preparedStatement);
         }
@@ -90,11 +92,10 @@ public class ReportDAORepository {
 
             preparedStatement.executeUpdate();
             connection.commit();
-            LOGGER.info("Updated report (id: " + report.getId() + "): " + report);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain update report ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain update report ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, preparedStatement);
         }
@@ -117,11 +118,10 @@ public class ReportDAORepository {
                 reportDTOList.add(extractReportDTO(resultSet));
             }
             connection.commit();
-            LOGGER.info("Report DTO list size: " + reportDTOList.size());
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain report DTO list ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain report DTO list ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, statement, resultSet);
         }
@@ -145,11 +145,10 @@ public class ReportDAORepository {
                 reportDTOList.add(extractReportDTO(resultSet));
             }
             connection.commit();
-            LOGGER.info("Report DTO list size: " + reportDTOList.size());
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain report DTO list ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain report DTO list ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, statement, resultSet);
         }

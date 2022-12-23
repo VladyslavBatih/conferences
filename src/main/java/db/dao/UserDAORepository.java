@@ -39,11 +39,10 @@ public class UserDAORepository {
                 selectedUser = extractUser(resultSet);
             }
             connection.commit();
-            LOGGER.info("Selected user: " + selectedUser);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain user ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain user ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, preparedStatement, resultSet);
         }
@@ -62,11 +61,10 @@ public class UserDAORepository {
                 userDTOList.add(extractUserDTO(resultSet));
             }
             connection.commit();
-            LOGGER.info("User DTO list size: " + userDTOList.size());
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain user DTO list ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain user DTO list ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, statement, resultSet);
         }
@@ -85,11 +83,10 @@ public class UserDAORepository {
                 userDTOList.add(extractUserDTO(resultSet));
             }
             connection.commit();
-            LOGGER.info("User DTO list size: " + userDTOList.size());
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain user DTO list ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain user DTO list ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, statement, resultSet);
         }
@@ -109,11 +106,10 @@ public class UserDAORepository {
             preparedStatement.setInt(columnIndex, user.getRoleId());
             preparedStatement.executeUpdate();
             connection.commit();
-            LOGGER.info("Inserted user: " + user);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain insert user ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain insert user ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, preparedStatement);
         }
@@ -131,11 +127,10 @@ public class UserDAORepository {
             preparedStatement.setInt(columnIndex, user.getId());
             preparedStatement.executeUpdate();
             connection.commit();
-            LOGGER.info("Updated user (id: " + user.getId() + "): " + user);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain update user ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain update user ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, preparedStatement);
         }

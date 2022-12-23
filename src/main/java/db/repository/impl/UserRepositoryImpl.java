@@ -29,8 +29,8 @@ public class UserRepositoryImpl implements UserRepository {
         return dbManager.doTransaction(() -> {
             try {
                 return userDAORepository.selectUser(user);
-            } catch (DBException e) {
-                LOGGER.error("Cannot get user " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot get user " + ex);
             }
             return null;
         });
@@ -41,8 +41,8 @@ public class UserRepositoryImpl implements UserRepository {
         dbManager.doTransaction(() -> {
             try {
                 return userDAORepository.insertUser(user);
-            } catch (DBException e) {
-                LOGGER.error("Cannot create new user " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot create new user " + ex);
             }
             return false;
         });
@@ -52,10 +52,9 @@ public class UserRepositoryImpl implements UserRepository {
     public void updateUser(User user) {
         dbManager.doTransaction(() -> {
             try {
-                LOGGER.info("Update user: " + user);
                 return userDAORepository.updateUser(user);
-            } catch (DBException e) {
-                LOGGER.error("Cannot update user " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot update user " + ex);
             }
             return false;
         });
@@ -66,8 +65,8 @@ public class UserRepositoryImpl implements UserRepository {
         return dbManager.doTransaction(() -> {
             try {
                 return userDAORepository.getUserDTOList();
-            } catch (DBException e) {
-                LOGGER.error("Cannot get list user " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot get list user " + ex);
             }
             return new ArrayList<>();
         });

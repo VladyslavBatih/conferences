@@ -54,9 +54,9 @@ public class DBManager {
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             result = function.get();
             connection.commit();
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             rollback(connection);
-            LOGGER.error(LoggerUtil.ERR_FAIL_TRANSACTION, e);
+            LOGGER.error(LoggerUtil.ERR_FAIL_TRANSACTION, ex);
         } finally {
             close(connection);
         }
@@ -67,8 +67,8 @@ public class DBManager {
         if (connection != null) {
             try {
                 connection.rollback();
-            } catch (SQLException e) {
-                LOGGER.error("Cannot rollback transaction", e);
+            } catch (SQLException ex) {
+                LOGGER.error("Cannot rollback transaction", ex);
             }
         }
     }

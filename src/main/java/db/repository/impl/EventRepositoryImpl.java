@@ -7,7 +7,6 @@ import db.entity.dto.EventDTO;
 import db.repository.EventRepository;
 import exception.DBException;
 import org.apache.log4j.Logger;
-import web.bean.EventBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +29,8 @@ public class EventRepositoryImpl implements EventRepository {
         return dbManager.doTransaction(() -> {
             try {
                 return eventDAORepository.selectEvent(event);
-            } catch (DBException e) {
-                LOGGER.error("Cannot get event " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot get event " + ex);
             }
             return null;
         });
@@ -42,8 +41,8 @@ public class EventRepositoryImpl implements EventRepository {
         dbManager.doTransaction(() -> {
             try {
                 return eventDAORepository.insertEvent(event);
-            } catch (DBException e) {
-                LOGGER.error("Cannot create new event " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot create new event " + ex);
             }
             return false;
         });
@@ -53,10 +52,9 @@ public class EventRepositoryImpl implements EventRepository {
     public void updateEvent(Event event) {
         dbManager.doTransaction(() -> {
             try {
-                LOGGER.info("Update event: " + event);
                 return eventDAORepository.updateEvent(event);
-            } catch (DBException e) {
-                LOGGER.error("Cannot update event " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot update event " + ex);
             }
             return false;
         });
@@ -67,8 +65,8 @@ public class EventRepositoryImpl implements EventRepository {
         return dbManager.doTransaction(() -> {
             try {
                 return eventDAORepository.getEventDTOList();
-            } catch (DBException e) {
-                LOGGER.error("Cannot get list event " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot get list event " + ex);
             }
             return new ArrayList<>();
         });

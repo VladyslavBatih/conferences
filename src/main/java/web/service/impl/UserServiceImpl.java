@@ -1,6 +1,5 @@
 package web.service.impl;
 
-import db.Role;
 import db.entity.User;
 import db.entity.dto.UserDTO;
 import db.repository.UserRepository;

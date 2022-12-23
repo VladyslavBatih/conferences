@@ -30,8 +30,8 @@ public class ReportRepositoryImpl implements ReportRepository {
         return dbManager.doTransaction(() -> {
             try {
                 return reportDAORepository.selectReport(report);
-            } catch (DBException e) {
-                LOGGER.error("Cannot get report " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot get report " + ex);
             }
             return null;
         });
@@ -42,8 +42,8 @@ public class ReportRepositoryImpl implements ReportRepository {
         dbManager.doTransaction(() -> {
             try {
                 return reportDAORepository.insertReport(report);
-            } catch (DBException e) {
-                LOGGER.error("Cannot create new report " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot create new report " + ex);
             }
             return false;
         });
@@ -53,10 +53,9 @@ public class ReportRepositoryImpl implements ReportRepository {
     public void updateReport(Report report) {
         dbManager.doTransaction(() -> {
             try {
-                LOGGER.info("Update event: " + report);
                 return reportDAORepository.updateReport(report);
-            } catch (DBException e) {
-                LOGGER.error("Cannot update report " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot update report " + ex);
             }
             return false;
         });
@@ -67,8 +66,8 @@ public class ReportRepositoryImpl implements ReportRepository {
         return dbManager.doTransaction(() -> {
             try {
                 return reportDAORepository.getReportDTOList();
-            } catch (DBException e) {
-                LOGGER.error("Cannot get list report " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot get list report " + ex);
             }
             return new ArrayList<>();
         });
@@ -79,8 +78,8 @@ public class ReportRepositoryImpl implements ReportRepository {
         return dbManager.doTransaction(() -> {
             try {
                 return reportDAORepository.getReportDTOList(eventDTO);
-            } catch (DBException e) {
-                LOGGER.error("Cannot get list report " + e);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot get list report " + ex);
             }
             return new ArrayList<>();
         });

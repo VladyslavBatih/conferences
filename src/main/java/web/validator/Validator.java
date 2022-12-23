@@ -86,7 +86,7 @@ public class Validator {
             errors.put("time", "Fill in event time");
         } else {
             if(!eventBean.getTime().matches("([01]?\\d|2[0-3]):[0-5]\\d")) {
-                errors.put("time", "Time format: hh:dd");
+                errors.put("time", "Time format: hh:mm");
             }
         }
         return errors;

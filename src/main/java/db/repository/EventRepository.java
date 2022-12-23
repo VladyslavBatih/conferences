@@ -2,7 +2,6 @@ package db.repository;
 
 import db.entity.Event;
 import db.entity.dto.EventDTO;
-import web.bean.EventBean;
 
 import java.util.List;
 

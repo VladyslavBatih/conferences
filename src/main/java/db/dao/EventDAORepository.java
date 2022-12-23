@@ -7,7 +7,11 @@ import db.entity.dto.ReportDTO;
 import exception.DBException;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,11 +40,10 @@ public class EventDAORepository {
                 selectedEvent = extractEvent(resultSet);
             }
             connection.commit();
-            LOGGER.info("Selected event: " + selectedEvent);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain event ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain event ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, preparedStatement, resultSet);
         }
@@ -62,11 +65,10 @@ public class EventDAORepository {
 
             preparedStatement.executeUpdate();
             connection.commit();
-            LOGGER.info("Inserted event: " + event);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain insert event ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain insert event ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, preparedStatement);
         }
@@ -89,11 +91,10 @@ public class EventDAORepository {
 
             preparedStatement.executeUpdate();
             connection.commit();
-            LOGGER.info("Updated event (id: " + event.getId() + "): " + event);
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain update event ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain update event ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, preparedStatement);
         }
@@ -113,11 +114,10 @@ public class EventDAORepository {
                 eventDTOList.add(extractEventDTO(resultSet));
             }
             connection.commit();
-            LOGGER.info("Event DTO list size: " + eventDTOList.size());
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             dbManager.rollback(connection);
-            LOGGER.error("Cannot obtain event DTO list ", e);
-            throw new DBException("Unable to connect", e);
+            LOGGER.error("Cannot obtain event DTO list ", ex);
+            throw new DBException("Unable to connect", ex);
         } finally {
             DBManager.close(connection, statement, resultSet);
         }
