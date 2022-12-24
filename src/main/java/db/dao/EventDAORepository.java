@@ -80,7 +80,7 @@ public class EventDAORepository {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(
-                    "UPDATE events name=?, place=?, date=?, time=? WHERE id=?"); // TODO QUERY
+                    "UPDATE events SET name=?, place=?, date=?, time=? WHERE id=?"); // TODO QUERY
 
             int columnIndex = 1;
             preparedStatement.setString(columnIndex++, event.getName());

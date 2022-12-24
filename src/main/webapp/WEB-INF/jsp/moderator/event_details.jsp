@@ -32,7 +32,6 @@
             </tr>
         </thead>
 
-
         <c:forEach var="reportDTO" items="${reportDTOList}">
         <tr>
 

@@ -5,9 +5,7 @@ import db.entity.dto.ReportDTO;
 import exception.AppException;
 import org.apache.log4j.Logger;
 import util.Constant;
-import web.service.EventService;
 import web.service.ReportService;
-import web.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
