@@ -42,6 +42,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public void removeEvent(int id) {
+        eventRepository.removeEvent(id);
+    }
+
+    @Override
     public List<EventDTO> getEventDTOList() {
         return eventRepository.getEventDTOList();
     }

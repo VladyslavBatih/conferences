@@ -23,6 +23,7 @@ public class UpdateEventViewCommand extends Command {
         Event currentEvent = eventService.findEvent(event);
 
         EventDTO eventDTO = new EventDTO();
+        eventDTO.setId(currentEvent.getId());
         eventDTO.setName(currentEvent.getName());
         eventDTO.setDate(currentEvent.getDate());
         eventDTO.setPlace(currentEvent.getPlace());

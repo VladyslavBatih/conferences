@@ -18,5 +18,7 @@ public interface EventService {
 
     Event findEvent(EventBean eventBean);
 
+    void removeEvent(int id);
+
     List<EventDTO> getEventDTOList();
 }

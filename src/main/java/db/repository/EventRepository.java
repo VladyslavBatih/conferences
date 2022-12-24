@@ -13,5 +13,7 @@ public interface EventRepository {
 
     void updateEvent(Event event);
 
+    void removeEvent(int id);
+
     List<EventDTO> getEventDTOList();
 }

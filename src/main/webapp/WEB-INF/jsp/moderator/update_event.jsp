@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>Add event * Conferences</title>
+    <title>Update event * Conferences</title>
 </head>
 
 <body>
@@ -21,6 +21,7 @@
                 <input type="hidden" name="command" value="updateEvent"/>
                 <table>
                     <% EventDTO eventDTO = (EventDTO) request.getAttribute("eventDTO"); %>
+                    <input type="hidden" name="eventId" value="${eventDTO.id}"
                     <tr>
                         <td></td>
                         <td><input placeholder="Event name" name="name" value="${eventDTO.name}" size=30/></td>

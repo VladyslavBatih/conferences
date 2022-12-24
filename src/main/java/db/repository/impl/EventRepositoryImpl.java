@@ -61,6 +61,18 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
+    public void removeEvent(int id) {
+        dbManager.doTransaction(() -> {
+            try {
+                eventDAORepository.deleteEvent(id);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot remove event " + ex);
+            }
+            return false;
+        });
+    }
+
+    @Override
     public List<EventDTO> getEventDTOList() {
         return dbManager.doTransaction(() -> {
             try {

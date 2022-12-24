@@ -35,7 +35,7 @@ public class UpdateEventCommand extends Command {
         EventBean eventBean = new EventBean(name, place, date, time);
         LOGGER.debug(eventBean);
 
-        int id = eventService.findEvent(eventBean).getId();
+        int id = Integer.parseInt(request.getParameter("eventId"));
 
         Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR);
         Map<String, String> errors = validator.validate(eventBean);
@@ -55,6 +55,7 @@ public class UpdateEventCommand extends Command {
             forward = Path.COMMAND_MODERATOR_PANEL;
         } else {
             EventDTO eventDTO = new EventDTO();
+            eventDTO.setId(id);
             eventDTO.setName(name);
             eventDTO.setPlace(place);
             eventDTO.setDate(date);

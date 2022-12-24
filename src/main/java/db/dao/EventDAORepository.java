@@ -101,6 +101,23 @@ public class EventDAORepository {
         return true;
     }
 
+    public void deleteEvent(int id) throws DBException {
+        Connection connection = dbManager.getConnection();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("DELETE FROM events WHERE id=?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            dbManager.rollback(connection);
+            LOGGER.error("Cannot obtain delete event ", ex);
+            throw new DBException("Unable to connect", ex);
+        } finally {
+            DBManager.close(connection, preparedStatement);
+        }
+    }
+
     public List<EventDTO> getEventDTOList() throws DBException {
         List<EventDTO> eventDTOList = new ArrayList<>();
         Connection connection = dbManager.getConnection();

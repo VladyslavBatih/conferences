@@ -40,6 +40,7 @@
                         </c:url>
                         <c:url var="updateButton" value="">
                             <c:param name="eventName" value="${eventDTO.name}"/>
+                            <c:param name="eventId" value="${eventDTO.id}"/>
                             <c:param name="command" value="updateEventView"/>
                         </c:url>
                         <c:url var="deleteButton" value="">
