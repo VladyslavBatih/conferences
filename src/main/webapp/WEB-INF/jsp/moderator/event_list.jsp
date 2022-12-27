@@ -47,7 +47,6 @@
                             <c:param name="eventId" value="${eventDTO.id}"/>
                             <c:param name="command" value="deleteEvent"/>
                         </c:url>
-
                         <td>${eventDTO.name}</td>
                         <td>${eventDTO.place}</td>
                         <td>${eventDTO.date}</td>
@@ -63,11 +62,12 @@
                     </tr>
                 </c:forEach>
             </table>
-        <table>
-            <tr>
-                <td><a href="controller?command=addEventView">Add new event</a></td>
-            </tr>
-        </table>
+            <table>
+                <tr>
+                    <td><a href="controller?command=addEventView">Add new event</a></td>
+                </tr>
+            </table>
+        </form>
     </div>
 </body>
 </html>
