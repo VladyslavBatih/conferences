@@ -82,12 +82,10 @@ public class ReportDAORepository {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(
-                    "UPDATE reports topic=?, event_id=?, speaker_id=? WHERE id=?"); // TODO QUERY
+                    "UPDATE reports SET topic=? WHERE id=?"); // TODO QUERY
 
             int columnIndex = 1;
             preparedStatement.setString(columnIndex++, report.getTopic());
-            preparedStatement.setInt(columnIndex++, report.getEventId());
-            preparedStatement.setInt(columnIndex++, report.getSpeakerId());
             preparedStatement.setInt(columnIndex, report.getId());
 
             preparedStatement.executeUpdate();

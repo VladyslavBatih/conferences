@@ -27,21 +27,19 @@ public class UpdateEventCommand extends Command {
 
         EventService eventService = (EventService) servletContext.getAttribute(Constant.EVENT_SERVICE);
 
+        int id = Integer.parseInt(request.getParameter("eventId"));
         String name = request.getParameter("name");
         String place = request.getParameter("place");
         String date = request.getParameter("date");
         String time = request.getParameter("time");
 
         EventBean eventBean = new EventBean(name, place, date, time);
-        LOGGER.debug(eventBean);
-
-        int id = Integer.parseInt(request.getParameter("eventId"));
+        LOGGER.debug("EventBean: " + eventBean);
 
         Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR);
         Map<String, String> errors = validator.validate(eventBean);
 
         LOGGER.debug("Errors: " + errors.size());
-        LOGGER.debug("EventBean: " + eventBean);
 
         String forward;
         if (errors.isEmpty()) {
