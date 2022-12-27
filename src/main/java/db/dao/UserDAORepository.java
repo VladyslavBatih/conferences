@@ -150,6 +150,7 @@ public class UserDAORepository {
 
     private UserDTO extractUserDTO(ResultSet resultSet) throws SQLException {
         return new UserDTO(
+                resultSet.getInt("id"),
                 resultSet.getString("login"),
                 resultSet.getString("firstname"),
                 resultSet.getString("lastname"));

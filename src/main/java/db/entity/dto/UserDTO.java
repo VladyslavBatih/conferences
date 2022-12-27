@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class UserDTO {
 
-    // TODO id ???
+    private int id;
     private String login;
     private String firstName;
     private String lastName;
@@ -12,10 +12,19 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String login, String firstName, String lastName) {
+    public UserDTO(int id, String login, String firstName, String lastName) {
+        this.id = id;
         this.login = login;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getLogin() {
