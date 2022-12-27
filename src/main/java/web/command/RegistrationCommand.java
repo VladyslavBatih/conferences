@@ -3,7 +3,6 @@ package web.command;
 import exception.AppException;
 import org.apache.log4j.Logger;
 import util.Constant;
-import util.Util;
 import web.bean.RegistrationBean;
 import web.service.UserService;
 import web.validator.Validator;
@@ -12,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Map;
 
 public class RegistrationCommand extends Command {
@@ -38,14 +36,13 @@ public class RegistrationCommand extends Command {
 
         registrationBean.setUser(userService.findUser(registrationBean));
 
-//        Locale locale = (Locale) request.getSession().getAttribute("localeClass");
         Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR);
-        Map<String, String> errors = validator.validate(registrationBean); // TODO validate(registrationBean, locale)
-//        Util util = (Util) servletContext.getAttribute(Constant.UTIL);
+        Map<String, String> errors = validator.validate(registrationBean);
+
         LOGGER.debug("Errors: " + errors.size());
         LOGGER.debug("RegistrationBean: " + registrationBean);
         String forward;
-        if (errors.isEmpty()) { // TODO util.isNotReSubmitting(request)
+        if (errors.isEmpty()) {
             userService.addUser(registrationBean);
             forward = "/controller?command=login";
         } else {

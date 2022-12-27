@@ -30,18 +30,18 @@ public class AddEventCommand extends Command {
         String time = request.getParameter("time");
 
         EventBean eventBean = new EventBean(name, place, date, time);
+        LOGGER.debug("EventBean: " + eventBean);
 
         EventService eventService = (EventService) servletContext.getAttribute(Constant.EVENT_SERVICE);
 
         Event event = eventService.findEvent(eventBean);
-        LOGGER.debug(event);
         eventBean.setEvent(eventService.findEvent(eventBean));
+        LOGGER.debug("Event: " + event);
 
         Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR);
         Map<String, String> errors = validator.validate(eventBean);
 
         LOGGER.debug("Errors: " + errors.size());
-        LOGGER.debug("EventBean: " + eventBean);
 
         String forward;
         if (errors.isEmpty()) {

@@ -33,7 +33,7 @@ public class ReportDAORepository {
         Report selectedReport = null;
         try {
             preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM reports WHERE event_id=? and topic=?",  // TODO QUERY
+                    "SELECT * FROM reports WHERE event_id=? and topic=?",
                     Statement.RETURN_GENERATED_KEYS);
             int columnIndex = 1;
             preparedStatement.setInt(columnIndex++, report.getEventId());
@@ -58,7 +58,7 @@ public class ReportDAORepository {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(
-                    "INSERT INTO reports(topic, event_id, speaker_id) VALUES (?,?,?)"); // TODO QUERY
+                    "INSERT INTO reports(topic, event_id, speaker_id) VALUES (?,?,?)");
             int columnIndex = 1;
             preparedStatement.setString(columnIndex++, report.getTopic());
             preparedStatement.setInt(columnIndex++, report.getEventId());
@@ -81,7 +81,7 @@ public class ReportDAORepository {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(
-                    "UPDATE reports SET topic=? WHERE id=?"); // TODO QUERY
+                    "UPDATE reports SET topic=? WHERE id=?");
 
             int columnIndex = 1;
             preparedStatement.setString(columnIndex++, report.getTopic());
@@ -126,7 +126,7 @@ public class ReportDAORepository {
             resultSet = statement.executeQuery(
                     "SELECT reports.id, reports.topic, users.firstname, users.lastname " +
                             "FROM reports " +
-                            "INNER JOIN users ON reports.speaker_id = users.id"); // TODO QUERY
+                            "INNER JOIN users ON reports.speaker_id = users.id");
 
             while (resultSet.next()) {
                 reportDTOList.add(extractReportDTO(resultSet));
@@ -153,7 +153,7 @@ public class ReportDAORepository {
                     "SELECT reports.id, reports.topic, users.firstname, users.lastname " +
                             "FROM reports " +
                             "INNER JOIN users ON reports.speaker_id = users.id " +
-                            "WHERE reports.event_id = " + eventDTO.getId()); // TODO QUERY
+                            "WHERE reports.event_id = " + eventDTO.getId());
 
             while (resultSet.next()) {
                 reportDTOList.add(extractReportDTO(resultSet));

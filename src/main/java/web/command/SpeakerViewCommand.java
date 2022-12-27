@@ -13,13 +13,13 @@ import java.io.IOException;
 import java.util.List;
 
 public class SpeakerViewCommand extends Command {
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException, AppException {
         UserService userService = (UserService) servletContext.getAttribute(Constant.USER_SERVICE);
         List<UserDTO> userDTOList = userService.getUserDTOList();
         request.setAttribute("userDTOList", userDTOList);
-
         return Path.PAGE_SPEAKER_EVENT_LIST;
     }
 }

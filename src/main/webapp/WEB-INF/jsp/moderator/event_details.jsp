@@ -3,7 +3,6 @@
 <%@ page import="java.util.List"%>
 <%@ page import="db.entity.dto.EventDTO"%>
 <%@ page import="db.entity.dto.ReportDTO"%>
-<%@ page import="db.entity.dto.UserDTO"%>
 
 <html>
 <head>

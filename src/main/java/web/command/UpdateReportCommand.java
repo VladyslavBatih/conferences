@@ -1,16 +1,12 @@
 package web.command;
 
-import db.entity.Event;
 import db.entity.Report;
 import db.entity.dto.EventDTO;
 import db.entity.dto.ReportDTO;
 import exception.AppException;
 import org.apache.log4j.Logger;
 import util.Constant;
-import util.Path;
-import web.bean.EventBean;
 import web.bean.ReportBean;
-import web.service.EventService;
 import web.service.ReportService;
 import web.validator.Validator;
 

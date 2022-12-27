@@ -9,7 +9,6 @@
 
 <body>
     <%@ include file="/WEB-INF/jspf/header.jspf" %>
-
     <div align="center">
         <h1>Conferences</h2>
         <br/>

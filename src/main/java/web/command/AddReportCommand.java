@@ -38,12 +38,12 @@ public class AddReportCommand extends Command {
 
         ReportService reportService = (ReportService) servletContext.getAttribute(Constant.REPORT_SERVICE);
         reportBean.setReport(reportService.findReport(reportBean));
+        LOGGER.debug("ReportBean: " + reportBean);
 
         Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR);
         Map<String, String> errors = validator.validate(reportBean);
 
         LOGGER.debug("Errors: " + errors.size());
-        LOGGER.debug("ReportBean: " + reportBean);
 
         String forward;
         if (errors.isEmpty()) {

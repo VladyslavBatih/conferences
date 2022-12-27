@@ -32,7 +32,7 @@ public class EventDAORepository {
         Event selectedEvent = null;
         try {
             preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM events WHERE name=?",  // TODO QUERY
+                    "SELECT * FROM events WHERE name=?",
                     Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, event.getName());
             resultSet = preparedStatement.executeQuery();
@@ -55,7 +55,7 @@ public class EventDAORepository {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(
-                    "INSERT INTO events(name, place, date, time) VALUES (?,?,?,?)"); // TODO QUERY
+                    "INSERT INTO events(name, place, date, time) VALUES (?,?,?,?)");
 
             int columnIndex = 1;
             preparedStatement.setString(columnIndex++, event.getName());
@@ -80,7 +80,7 @@ public class EventDAORepository {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(
-                    "UPDATE events SET name=?, place=?, date=?, time=? WHERE id=?"); // TODO QUERY
+                    "UPDATE events SET name=?, place=?, date=?, time=? WHERE id=?");
 
             int columnIndex = 1;
             preparedStatement.setString(columnIndex++, event.getName());
@@ -126,7 +126,7 @@ public class EventDAORepository {
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(
-                    "SELECT * FROM events;"); // TODO QUERY
+                    "SELECT * FROM events;");
             while (resultSet.next()) {
                 eventDTOList.add(extractEventDTO(resultSet));
             }

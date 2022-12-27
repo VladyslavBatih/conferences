@@ -61,7 +61,7 @@ public class ReportServiceImpl implements ReportService {
         Report report = new Report();
         report.setTopic(reportBean.getTopic());
         report.setEventId(reportBean.getEventId());
-        report.setSpeakerId(23); // TODO 23 -> empty user (speaker)
+        report.setSpeakerId(23);
         return report;
     }
 }

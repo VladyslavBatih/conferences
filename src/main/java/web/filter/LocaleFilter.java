@@ -30,7 +30,7 @@ public class LocaleFilter implements Filter {
     private final Logger LOGGER = Logger.getLogger(LocaleFilter.class);
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         LOGGER.debug("Filter initialized");
         supportedLanguages = asList(filterConfig.getInitParameter("supportedLocales"));
         defaultLanguage = filterConfig.getInitParameter("defaultLocale");

@@ -32,7 +32,9 @@ public class UserDAORepository {
         ResultSet resultSet = null;
         User selectedUser = null;
         try {
-            preparedStatement = connection.prepareStatement(DBConstant.SQL_GET_USER_BY_LOGIN, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = connection.prepareStatement(
+                    DBConstant.SQL_GET_USER_BY_LOGIN,
+                    Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getLogin());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -78,7 +80,8 @@ public class UserDAORepository {
         ResultSet resultSet = null;
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM reports_users WHERE report_id = " + reportDTO.getId()); // TODO QUERY
+            resultSet = statement.executeQuery(
+                    "SELECT * FROM reports_users WHERE report_id = " + reportDTO.getId());
             while (resultSet.next()) {
                 userDTOList.add(extractUserDTO(resultSet));
             }

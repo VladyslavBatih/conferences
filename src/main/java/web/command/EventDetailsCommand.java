@@ -7,6 +7,7 @@ import db.entity.dto.ReportDTO;
 import exception.AppException;
 import org.apache.log4j.Logger;
 import util.Constant;
+import util.Path;
 import web.service.ReportService;
 
 import javax.servlet.ServletException;
@@ -24,7 +25,7 @@ public class EventDetailsCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException, AppException {
         LOGGER.info("EventDetailsCommand: starts working");
-        LOGGER.trace("Event DTO id: " + request.getParameter("eventId"));
+        LOGGER.trace("EventDTO id: " + request.getParameter("eventId"));
 
         EventDTO eventDTO = new EventDTO();
         eventDTO.setId(Integer.parseInt(request.getParameter("eventId")));
@@ -40,7 +41,7 @@ public class EventDetailsCommand extends Command {
         User user = (User) session.getAttribute("user");
         Role userRole = Role.getRole(user);
 
-        String forward = "";
+        String forward = Path.PAGE_LOGIN;
         if (userRole == Role.MODERATOR) {
             forward = "/WEB-INF/jsp/moderator/event_details.jsp";
         }
