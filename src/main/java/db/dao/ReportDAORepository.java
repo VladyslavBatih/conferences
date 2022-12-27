@@ -59,7 +59,6 @@ public class ReportDAORepository {
         try {
             preparedStatement = connection.prepareStatement(
                     "INSERT INTO reports(topic, event_id, speaker_id) VALUES (?,?,?)"); // TODO QUERY
-            System.out.println(report);
             int columnIndex = 1;
             preparedStatement.setString(columnIndex++, report.getTopic());
             preparedStatement.setInt(columnIndex++, report.getEventId());
@@ -98,6 +97,23 @@ public class ReportDAORepository {
             DBManager.close(connection, preparedStatement);
         }
         return true;
+    }
+
+    public void deleteReport(int id) throws DBException {
+        Connection connection = dbManager.getConnection();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("DELETE FROM reports WHERE id=?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            dbManager.rollback(connection);
+            LOGGER.error("Cannot obtain delete report ", ex);
+            throw new DBException("Unable to connect", ex);
+        } finally {
+            DBManager.close(connection, preparedStatement);
+        }
     }
 
     public List<ReportDTO> getReportDTOList() throws DBException {

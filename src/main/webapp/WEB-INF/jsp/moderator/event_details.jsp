@@ -33,32 +33,27 @@
             </thead>
 
             <c:forEach var="reportDTO" items="${reportDTOList}">
-            <tr>
-                <c:url var="detailsButton" value="">
-                    <c:param name="reportId" value="${reportDTO.id}"/>
-                    <c:param name="command" value="reportDetails"/>
-                </c:url>
-                <c:url var="updateButton" value="">
-                    <c:param name="reportId" value="${reportDTO.id}"/>
-                    <c:param name="reportTopic" value="${reportDTO.topic}"/>
-                    <c:param name="eventId" value="${eventDTO.id}"/>
-                    <c:param name="command" value="updateReportView"/>
-                </c:url>
-                <c:url var="deleteButton" value="">
-                    <c:param name="reportId" value="${reportDTO.id}"/>
-                    <c:param name="command" value="deleteReport"/>
-                </c:url>
-                <td>${reportDTO.topic}</td>
-                <td>${reportDTO.speakerFirstName} ${reportDTO.speakerLastName}</td>
-                <td>
-                    <input type="button" value="Details"
-                        onclick="window.location.href='${detailsButton}'"/>
-                    <input type="button" value="Update"
-                        onclick="window.location.href='${updateButton}'"/>
-                    <input type="button" value="Delete"
-                        onclick="window.location.href='${deleteButton}'"/>
-                </td>
-            </tr>
+                <tr>
+                    <c:url var="updateButton" value="">
+                        <c:param name="reportId" value="${reportDTO.id}"/>
+                        <c:param name="reportTopic" value="${reportDTO.topic}"/>
+                        <c:param name="eventId" value="${eventDTO.id}"/>
+                        <c:param name="command" value="updateReportView"/>
+                    </c:url>
+                    <c:url var="deleteButton" value="">
+                        <c:param name="reportId" value="${reportDTO.id}"/>
+                        <c:param name="eventId" value="${eventDTO.id}"/>
+                        <c:param name="command" value="deleteReport"/>
+                    </c:url>
+                    <td>${reportDTO.topic}</td>
+                    <td>${reportDTO.speakerFirstName} ${reportDTO.speakerLastName}</td>
+                    <td>
+                        <input type="button" value="Update"
+                            onclick="window.location.href='${updateButton}'"/>
+                        <input type="button" value="Delete"
+                            onclick="window.location.href='${deleteButton}'"/>
+                    </td>
+                </tr>
             </c:forEach>
         </table>
         <table>

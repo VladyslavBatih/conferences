@@ -62,6 +62,18 @@ public class ReportRepositoryImpl implements ReportRepository {
     }
 
     @Override
+    public void removeReport(int id) {
+        dbManager.doTransaction(() -> {
+            try {
+                reportDAORepository.deleteReport(id);
+            } catch (DBException ex) {
+                LOGGER.error("Cannot remove report " + ex);
+            }
+            return false;
+        });
+    }
+
+    @Override
     public List<ReportDTO> getReportDTOList() {
         return dbManager.doTransaction(() -> {
             try {

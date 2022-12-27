@@ -26,6 +26,7 @@ public class CommandContainer {
         commands.put("deleteEvent", new DeleteEventCommand());
         commands.put("updateReportView", new UpdateReportViewCommand());
         commands.put("updateReport", new UpdateReportCommand());
+        commands.put("deleteReport", new DeleteReportCommand());
         commands.put("noCommand", new NoCommand());
     }
 

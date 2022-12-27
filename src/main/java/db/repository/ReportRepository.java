@@ -14,6 +14,8 @@ public interface ReportRepository {
 
     void updateReport(Report report);
 
+    void removeReport(int id);
+
     List<ReportDTO> getReportDTOList();
 
     List<ReportDTO> getReportDTOList(EventDTO eventDTO);

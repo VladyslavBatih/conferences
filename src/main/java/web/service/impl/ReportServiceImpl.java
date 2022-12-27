@@ -33,6 +33,11 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    public void removeReport(int id) {
+        reportRepository.removeReport(id);
+    }
+
+    @Override
     public Report findReport(Report report) {
         return reportRepository.getReport(report);
     }

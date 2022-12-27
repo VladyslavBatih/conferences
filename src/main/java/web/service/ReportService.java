@@ -15,6 +15,8 @@ public interface ReportService {
 
     void updateReportInfo(Report report);
 
+    void removeReport(int id);
+
     Report findReport(Report report);
 
     Report findReport(ReportBean reportBean);
