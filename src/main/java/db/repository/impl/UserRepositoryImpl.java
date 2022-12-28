@@ -13,7 +13,7 @@ import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
 
-    private final Logger LOGGER = Logger.getLogger(UserRepositoryImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(UserRepositoryImpl.class);
 
     private final UserDAORepository userDAORepository;
 

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class NoCommand extends Command {
 
-    private final Logger LOGGER = Logger.getLogger(NoCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(NoCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ReportDAORepository {
 
-    private final Logger LOGGER = Logger.getLogger(ReportDAORepository.class);
+    private static final Logger LOGGER = Logger.getLogger(ReportDAORepository.class);
 
     private final DBManager dbManager;
 

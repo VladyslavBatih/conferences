@@ -17,7 +17,7 @@ import java.util.List;
 
 public class EventDAORepository {
 
-    private final Logger LOGGER = Logger.getLogger(EventDAORepository.class);
+    private static final Logger LOGGER = Logger.getLogger(EventDAORepository.class);
 
     private final DBManager dbManager;
 

@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class DeleteEventCommand extends Command {
 
-    Logger LOGGER = Logger.getLogger(DeleteEventCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(DeleteEventCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)

@@ -27,7 +27,7 @@ public class LocaleFilter implements Filter {
     private String defaultLanguage;
     private ServletContext servletContext;
 
-    private final Logger LOGGER = Logger.getLogger(LocaleFilter.class);
+    private static final Logger LOGGER = Logger.getLogger(LocaleFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) {

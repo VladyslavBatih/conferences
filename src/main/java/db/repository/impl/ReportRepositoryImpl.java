@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ReportRepositoryImpl implements ReportRepository {
 
-    private final Logger LOGGER = Logger.getLogger(ReportRepositoryImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ReportRepositoryImpl.class);
 
     private final ReportDAORepository reportDAORepository;
 

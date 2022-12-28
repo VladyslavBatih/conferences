@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class AddReportCommand extends Command {
 
-    private final Logger LOGGER = Logger.getLogger(AddReportCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(AddReportCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)

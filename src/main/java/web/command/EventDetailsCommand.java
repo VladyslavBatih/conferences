@@ -19,7 +19,7 @@ import java.util.List;
 
 public class EventDetailsCommand extends Command {
 
-    private final Logger LOGGER = Logger.getLogger(EventDetailsCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(EventDetailsCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)

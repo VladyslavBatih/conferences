@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class DeleteReportCommand extends Command {
 
-    Logger LOGGER = Logger.getLogger(DeleteReportCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(DeleteReportCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)

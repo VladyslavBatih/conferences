@@ -17,7 +17,6 @@ public class UpdateReportViewCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException, AppException {
-
         int eventId = Integer.parseInt(request.getParameter("eventId"));
 
         Report report = new Report();

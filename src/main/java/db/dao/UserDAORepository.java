@@ -18,7 +18,7 @@ import java.util.List;
 
 public class UserDAORepository {
 
-    private final Logger LOGGER = Logger.getLogger(UserDAORepository.class);
+    private static final Logger LOGGER = Logger.getLogger(UserDAORepository.class);
 
     private final DBManager dbManager;
 

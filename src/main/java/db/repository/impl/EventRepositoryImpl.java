@@ -13,7 +13,7 @@ import java.util.List;
 
 public class EventRepositoryImpl implements EventRepository {
 
-    private final Logger LOGGER = Logger.getLogger(EventRepositoryImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(EventRepositoryImpl.class);
 
     private final EventDAORepository eventDAORepository;
 
