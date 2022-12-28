@@ -32,7 +32,7 @@ public class EventRepositoryImpl implements EventRepository {
             } catch (DBException ex) {
                 LOGGER.error("Cannot get event " + ex);
             }
-            return null;
+            return new Event();
         });
     }
 

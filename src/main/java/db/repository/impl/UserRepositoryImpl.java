@@ -32,7 +32,7 @@ public class UserRepositoryImpl implements UserRepository {
             } catch (DBException ex) {
                 LOGGER.error("Cannot get user " + ex);
             }
-            return null;
+            return new User();
         });
     }
 

@@ -33,7 +33,7 @@ public class ReportRepositoryImpl implements ReportRepository {
             } catch (DBException ex) {
                 LOGGER.error("Cannot get report " + ex);
             }
-            return null;
+            return new Report();
         });
     }
 
