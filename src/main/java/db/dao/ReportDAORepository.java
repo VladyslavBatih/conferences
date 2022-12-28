@@ -7,6 +7,7 @@ import db.entity.dto.ReportDTO;
 import db.entity.dto.UserDTO;
 import exception.DBException;
 import org.apache.log4j.Logger;
+import util.DBConstant;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,7 +34,7 @@ public class ReportDAORepository {
         Report selectedReport = null;
         try {
             preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM reports WHERE event_id=? and topic=?",
+                    DBConstant.SQL_GET_ALL_REPORT_BY_EVENT_AND_TOPIC,
                     Statement.RETURN_GENERATED_KEYS);
             int columnIndex = 1;
             preparedStatement.setInt(columnIndex++, report.getEventId());
@@ -57,8 +58,8 @@ public class ReportDAORepository {
         Connection connection = dbManager.getConnection();
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(
-                    "INSERT INTO reports(topic, event_id, speaker_id) VALUES (?,?,?)");
+            preparedStatement = connection.prepareStatement(DBConstant.SQL_INSERT_REPORT);
+
             int columnIndex = 1;
             preparedStatement.setString(columnIndex++, report.getTopic());
             preparedStatement.setInt(columnIndex++, report.getEventId());
@@ -80,8 +81,7 @@ public class ReportDAORepository {
         Connection connection = dbManager.getConnection();
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(
-                    "UPDATE reports SET topic=? WHERE id=?");
+            preparedStatement = connection.prepareStatement(DBConstant.SQL_UPDATE_REPORT_BY_ID);
 
             int columnIndex = 1;
             preparedStatement.setString(columnIndex++, report.getTopic());
@@ -103,7 +103,7 @@ public class ReportDAORepository {
         Connection connection = dbManager.getConnection();
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement("DELETE FROM reports WHERE id=?");
+            preparedStatement = connection.prepareStatement(DBConstant.SQL_DELETE_REPORT_BY_ID);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             connection.commit();
@@ -123,10 +123,7 @@ public class ReportDAORepository {
         ResultSet resultSet = null;
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(
-                    "SELECT reports.id, reports.topic, users.firstname, users.lastname " +
-                            "FROM reports " +
-                            "INNER JOIN users ON reports.speaker_id = users.id");
+            resultSet = statement.executeQuery(DBConstant.SQL_GET_REPORT_BY_SPEAKER);
 
             while (resultSet.next()) {
                 reportDTOList.add(extractReportDTO(resultSet));
@@ -150,10 +147,7 @@ public class ReportDAORepository {
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(
-                    "SELECT reports.id, reports.topic, users.firstname, users.lastname " +
-                            "FROM reports " +
-                            "INNER JOIN users ON reports.speaker_id = users.id " +
-                            "WHERE reports.event_id = " + eventDTO.getId());
+                    DBConstant.SQL_GET_REPORT_BY_SPEAKER_AND_EVENT+ eventDTO.getId());
 
             while (resultSet.next()) {
                 reportDTOList.add(extractReportDTO(resultSet));

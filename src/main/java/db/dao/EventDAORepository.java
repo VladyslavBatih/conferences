@@ -6,6 +6,7 @@ import db.entity.dto.EventDTO;
 import db.entity.dto.ReportDTO;
 import exception.DBException;
 import org.apache.log4j.Logger;
+import util.DBConstant;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +33,7 @@ public class EventDAORepository {
         Event selectedEvent = null;
         try {
             preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM events WHERE name=?",
+                    DBConstant.SQL_GET_EVENT_BY_NAME,
                     Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, event.getName());
             resultSet = preparedStatement.executeQuery();
@@ -54,8 +55,7 @@ public class EventDAORepository {
         Connection connection = dbManager.getConnection();
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(
-                    "INSERT INTO events(name, place, date, time) VALUES (?,?,?,?)");
+            preparedStatement = connection.prepareStatement(DBConstant.SQL_INSERT_EVENT);
 
             int columnIndex = 1;
             preparedStatement.setString(columnIndex++, event.getName());
@@ -79,8 +79,7 @@ public class EventDAORepository {
         Connection connection = dbManager.getConnection();
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(
-                    "UPDATE events SET name=?, place=?, date=?, time=? WHERE id=?");
+            preparedStatement = connection.prepareStatement(DBConstant.SQL_UPDATE_EVENT_BY_ID);
 
             int columnIndex = 1;
             preparedStatement.setString(columnIndex++, event.getName());
@@ -105,7 +104,7 @@ public class EventDAORepository {
         Connection connection = dbManager.getConnection();
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement("DELETE FROM events WHERE id=?");
+            preparedStatement = connection.prepareStatement(DBConstant.SQL_DELETE_EVENT_BY_ID);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             connection.commit();
@@ -125,8 +124,7 @@ public class EventDAORepository {
         ResultSet resultSet = null;
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(
-                    "SELECT * FROM events;");
+            resultSet = statement.executeQuery(DBConstant.SQL_GET_ALL_EVENT);
             while (resultSet.next()) {
                 eventDTOList.add(extractEventDTO(resultSet));
             }

@@ -81,7 +81,7 @@ public class UserDAORepository {
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(
-                    "SELECT * FROM reports_users WHERE report_id = " + reportDTO.getId());
+                    DBConstant.SQL_GET_ALL_USER_BY_REPORT + reportDTO.getId());
             while (resultSet.next()) {
                 userDTOList.add(extractUserDTO(resultSet));
             }
@@ -124,7 +124,7 @@ public class UserDAORepository {
         PreparedStatement preparedStatement = null;
         try {
             int columnIndex = 1;
-            preparedStatement = connection.prepareStatement(DBConstant.SQL_UPDATE_USER);
+            preparedStatement = connection.prepareStatement(DBConstant.SQL_UPDATE_USER_BY_ID);
             preparedStatement.setString(columnIndex++, user.getFirstName());
             preparedStatement.setString(columnIndex++, user.getLastName());
             preparedStatement.setInt(columnIndex, user.getId());
