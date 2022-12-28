@@ -24,7 +24,7 @@ public class DeleteReportCommand extends Command {
         ReportService reportService = (ReportService) servletContext.getAttribute(Constant.REPORT_SERVICE);
         reportService.removeReport(reportId);
 
-        LOGGER.trace("Event was successfully removed with id: " + reportId);
+        LOGGER.info("Event was successfully removed with id: " + reportId);
 
         return "controller?command=eventDetails&eventId=" + eventID;
     }

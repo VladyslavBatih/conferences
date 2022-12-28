@@ -24,7 +24,7 @@ public class DeleteEventCommand extends Command {
         EventService eventService = (EventService) servletContext.getAttribute(Constant.EVENT_SERVICE);
         eventService.removeEvent(id);
 
-        LOGGER.trace("Event was successfully removed with id: " + id);
+        LOGGER.info("Event was successfully removed with id: " + id);
 
         return Path.COMMAND_MODERATOR_PANEL;
     }

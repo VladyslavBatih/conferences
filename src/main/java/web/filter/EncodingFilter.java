@@ -21,30 +21,30 @@ public class EncodingFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        LOGGER.debug("Filter initialized");
+        LOGGER.info("Filter initialized");
         encoding = filterConfig.getInitParameter("encoding");
-        LOGGER.trace("Encoding from web.xml -->" + encoding);
+        LOGGER.info("Encoding from web.xml -->" + encoding);
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
-        LOGGER.debug("Filter starts working");
+        LOGGER.info("Filter starts working");
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        LOGGER.trace("Request URI -->" + httpRequest.getRequestURI());
+        LOGGER.info("Request URI -->" + httpRequest.getRequestURI());
 
         String requestEncoding = request.getCharacterEncoding();
         if (Objects.isNull(requestEncoding)) {
-            LOGGER.trace("Request encoding = null, set encoding --> " + encoding);
+            LOGGER.error("Request encoding = null, set encoding --> " + encoding);
             request.setCharacterEncoding(encoding);
         }
-        LOGGER.debug("Filter finished work");
+        LOGGER.info("Filter finished work");
         filterChain.doFilter(request, response);
     }
 
     @Override
     public void destroy() {
-        LOGGER.debug("Filter destroyed");
+        LOGGER.info("Filter destroyed");
     }
 }

@@ -34,12 +34,10 @@ public class UpdateReportCommand extends Command {
         ReportBean reportBean = new ReportBean();
         reportBean.setTopic(topic);
         reportBean.setEventId(eventId);
-        LOGGER.debug(reportBean);
+        LOGGER.info("ReportBean:" + reportBean);
 
         Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR);
         Map<String, String> errors = validator.validate(reportBean);
-
-        LOGGER.debug("Errors: " + errors.size());
 
         String forward;
         if (errors.isEmpty()) {
@@ -50,6 +48,9 @@ public class UpdateReportCommand extends Command {
             reportService.updateReportInfo(report);
             forward = "controller?command=eventDetails&eventId=" + eventId;
         } else {
+            LOGGER.error("Errors: " + errors.size());
+            request.setAttribute("errors", errors);
+
             EventDTO eventDTO = new EventDTO();
             eventDTO.setId(eventId);
 
@@ -59,7 +60,6 @@ public class UpdateReportCommand extends Command {
 
             request.setAttribute("eventDTO", eventDTO);
             request.setAttribute("reportDTO", reportDTO);
-            request.setAttribute("errors", errors);
             forward = "/WEB-INF/jsp/moderator/update_report.jsp";
         }
         LOGGER.info("Command finishes work");

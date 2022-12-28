@@ -34,16 +34,14 @@ public class AddReportCommand extends Command {
         reportBean.setTopic(topic);
         reportBean.setEventId(eventDTO.getId());
 
-        LOGGER.debug("Event id: " + eventDTO.getId());
+        LOGGER.info("Event id: " + eventDTO.getId());
 
         ReportService reportService = (ReportService) servletContext.getAttribute(Constant.REPORT_SERVICE);
         reportBean.setReport(reportService.findReport(reportBean));
-        LOGGER.debug("ReportBean: " + reportBean);
+        LOGGER.info("ReportBean: " + reportBean);
 
         Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR);
         Map<String, String> errors = validator.validate(reportBean);
-
-        LOGGER.debug("Errors: " + errors.size());
 
         String forward;
         if (errors.isEmpty()) {
@@ -52,6 +50,7 @@ public class AddReportCommand extends Command {
             request.setAttribute("reportDTOList", reportDTOList);
             forward = "/WEB-INF/jsp/moderator/event_details.jsp";
         } else {
+            LOGGER.error("Errors: " + errors.size());
             request.setAttribute("errors", errors);
             forward = "/WEB-INF/jsp/moderator/add_report.jsp";
         }

@@ -37,7 +37,7 @@ public class Controller extends HttpServlet {
         LOGGER.info("Controller starts working");
 
         Command command = getCommand(request);
-        LOGGER.trace("Obtained command --> " + command);
+        LOGGER.info("Obtained command --> " + command);
 
         String forward = Path.PAGE_ERROR_PAGE;
         try {
@@ -45,13 +45,13 @@ public class Controller extends HttpServlet {
         } catch (AppException ex) {
             request.setAttribute("errorMessage", ex.getMessage());
         }
-        LOGGER.debug("Forward address --> " + forward);
+        LOGGER.info("Forward address --> " + forward);
         request.getRequestDispatcher(forward).forward(request, response);
     }
 
     private Command getCommand(HttpServletRequest request) {
         String commandName = request.getParameter("command");
-        LOGGER.trace("Request parameter: command --> " + commandName);
+        LOGGER.info("Request parameter: command --> " + commandName);
 
         Command command = CommandContainer.getCommand(commandName);
         UserService userService = (UserService) getServletContext().getAttribute(Constant.USER_SERVICE);

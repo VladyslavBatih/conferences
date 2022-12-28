@@ -34,12 +34,10 @@ public class UpdateEventCommand extends Command {
         String time = request.getParameter("time");
 
         EventBean eventBean = new EventBean(name, place, date, time);
-        LOGGER.debug("EventBean: " + eventBean);
+        LOGGER.info("EventBean: " + eventBean);
 
         Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR);
         Map<String, String> errors = validator.validate(eventBean);
-
-        LOGGER.debug("Errors: " + errors.size());
 
         String forward;
         if (errors.isEmpty()) {
@@ -52,15 +50,17 @@ public class UpdateEventCommand extends Command {
             eventService.updateEventInfo(event);
             forward = Path.COMMAND_MODERATOR_PANEL;
         } else {
+            LOGGER.error("Errors: " + errors.size());
+            request.setAttribute("errors", errors);
+
             EventDTO eventDTO = new EventDTO();
             eventDTO.setId(id);
             eventDTO.setName(name);
             eventDTO.setPlace(place);
             eventDTO.setDate(date);
             eventDTO.setTime(time);
-
             request.setAttribute("eventDTO", eventDTO);
-            request.setAttribute("errors", errors);
+
             forward = "/WEB-INF/jsp/moderator/update_event.jsp";
         }
         LOGGER.info("Command finishes work");

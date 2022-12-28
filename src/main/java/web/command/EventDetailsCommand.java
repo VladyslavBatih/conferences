@@ -25,14 +25,14 @@ public class EventDetailsCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException, AppException {
         LOGGER.info("EventDetailsCommand: starts working");
-        LOGGER.trace("EventDTO id: " + request.getParameter("eventId"));
 
         EventDTO eventDTO = new EventDTO();
         eventDTO.setId(Integer.parseInt(request.getParameter("eventId")));
+        LOGGER.info("EventDTO id: " + request.getParameter("eventId"));
 
         ReportService reportService = (ReportService) servletContext.getAttribute(Constant.REPORT_SERVICE);
         List<ReportDTO> reportDTOList = reportService.getReportDTOList(eventDTO);
-        LOGGER.trace("Report DTO list size: " + reportDTOList.size());
+        LOGGER.info("Report DTO list size: " + reportDTOList.size());
 
         request.setAttribute("reportDTOList", reportDTOList);
         request.setAttribute("eventDTO", eventDTO);

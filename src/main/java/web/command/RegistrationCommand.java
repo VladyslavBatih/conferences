@@ -28,9 +28,10 @@ public class RegistrationCommand extends Command {
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         int role = request.getParameter("role").equals("speaker") ? 1 : 2;
-        LOGGER.debug("role --> " + role);
+        LOGGER.info("role --> " + role);
 
         RegistrationBean registrationBean = new RegistrationBean(login, password, confirm, firstname, lastname, role);
+        LOGGER.info("RegistrationBean: " + registrationBean);
 
         UserService userService = (UserService) servletContext.getAttribute(Constant.USER_SERVICE);
 
@@ -39,17 +40,16 @@ public class RegistrationCommand extends Command {
         Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR);
         Map<String, String> errors = validator.validate(registrationBean);
 
-        LOGGER.debug("Errors: " + errors.size());
-        LOGGER.debug("RegistrationBean: " + registrationBean);
         String forward;
         if (errors.isEmpty()) {
             userService.addUser(registrationBean);
             forward = "/controller?command=login";
         } else {
+            LOGGER.error("Errors: " + errors.size());
+            request.setAttribute("errors", errors);
             request.setAttribute("login", login);
             request.setAttribute("firstname", firstname);
             request.setAttribute("lastname", lastname);
-            request.setAttribute("errors", errors);
             forward = "/WEB-INF/jsp/common/registration.jsp";
         }
         LOGGER.info("Command finishes work");

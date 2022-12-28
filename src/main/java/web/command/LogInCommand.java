@@ -30,10 +30,10 @@ public class LogInCommand extends Command {
 
         String login = request.getParameter("login");
         request.setAttribute("login", login);
-        LOGGER.trace("Request parameter: login --> " + login);
+        LOGGER.info("Request parameter: login --> " + login);
 
         String password = request.getParameter("password");
-        LOGGER.trace("Request parameter: password --> " + password);
+        LOGGER.info("Request parameter: password --> " + password);
 
         UserService userService = (UserService) servletContext.getAttribute(Constant.USER_SERVICE);
 
@@ -42,7 +42,7 @@ public class LogInCommand extends Command {
         authBean.setUser(user);
 
         session.setAttribute(Constant.USER, user);
-        LOGGER.trace("Set the session attribute: user --> " + user);
+        LOGGER.info("Set the session attribute: user --> " + user);
 
         Validator validator = (Validator) servletContext.getAttribute(Constant.VALIDATOR);
         Map<String, String> errors = validator.validate(authBean);
